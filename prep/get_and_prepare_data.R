@@ -20,10 +20,12 @@ welsh.case.data <- read_csv("https://api.coronavirus.data.gov.uk/v2/data?areaTyp
 
 public.app.data.totals <- public.app.data %>%
   filter(`Week starting (Wythnos yn dechrau)` >= as.Date("2020-12-17")) %>%
-  group_by(`Week starting (Wythnos yn dechrau)`) %>%
+  group_by(`Week starting (Wythnos yn dechrau)`, `Week ending (Wythnos yn gorffen)`) %>%
   summarise("app_positives" = sum(`Positive test results linked to app (Canlyniadau prawf positif)`),
             "app_notifications" = sum(`Contact tracing alert (Hysbysiadau olrhain cyswllt)`)) %>%
-  mutate("date" = `Week starting (Wythnos yn dechrau)` + 3)
+  mutate("date" = `Week starting (Wythnos yn dechrau)` + 3) %>%
+  mutate("week_label" = glue("{format(date - 3, \"%d %B\")} to {format(date + 3, \"%d %B\")}")) %>%
+  ungroup(`Week starting (Wythnos yn dechrau)`,`Week ending (Wythnos yn gorffen)`)
 
 engwales.case.data <- bind_rows(english.case.data, welsh.case.data) %>%
   filter(date >= as.Date("2020-12-01")) %>%
@@ -41,12 +43,14 @@ public.app.data.totals <- public.app.data.totals %>%
 # tidy
 public.app.data.totals <- public.app.data.totals %>%
   select(`Week starting (Wythnos yn dechrau)`,
+         `Week ending (Wythnos yn gorffen)`,
          "midweek_date" = date,
+         week_label,
          app_positives,
          app_notifications,
          weekly_sum_eng_wales_cases_by_specimen_date,
          exposure_notifications_per_index_case,
-         percent_cases_through_app)
+         percent_cases_through_app) 
 
 ###########
 # PLOTTING

@@ -75,19 +75,19 @@ N_P_log_plot <- plot_ly(public.app.data.totals) %>%
                   yref="y",
                   showarrow=FALSE) %>%
   add_lines(x=~midweek_date, y=~app_notifications, name="App notifications",
-            text=~`Week starting (Wythnos yn dechrau)`,
+            text=~week_label,
             line=list(width=4), color=I("#1f77b4"),
             hovertemplate = paste(
               '%{y} notifications in the<br>',
-              'week beginning %{text|%d %B}<extra></extra>')
+              'week %{text}<extra></extra>')
             ) %>%
   add_lines(x=~midweek_date, y=~app_positives, name="Positive tests\nentered into app",
-            text=~`Week starting (Wythnos yn dechrau)`,
+            text=~week_label,
             line=list(width=4), color=I("#ff7f0e"),
             hovertemplate = paste(
               '%{y} positive tests entered<br>',
               'into the app in the<br>',
-              'week beginning %{text|%d %B}<extra></extra>')
+              'week %{text}<extra></extra>')
             ) %>%
   layout(
     xaxis=list(tickfont=f1,
@@ -144,13 +144,13 @@ ENPIC_plot <- plot_ly(public.app.data.totals) %>%
                   yref="y",
                   showarrow=FALSE) %>%
   add_lines(x=~midweek_date, y=~exposure_notifications_per_index_case,
-            text=~`Week starting (Wythnos yn dechrau)`,
+            text=~week_label,
             line=list(width=4), color=I('darkred'),
             hovertemplate = paste(
               '%{y:.2s} notifications per person who<br>',
               'input a positive test and<br>',
               'agreed to contact tracing<br>',
-              'in the week beginning %{text|%d %B}<extra></extra>')
+              'in the week %{text}<extra></extra>')
             ) %>%
   layout(
     xaxis=list(tickfont=f1,
@@ -206,13 +206,13 @@ percent_app_plot <- plot_ly(public.app.data.totals) %>%
                   yref="y",
                   showarrow=FALSE) %>%
   add_lines(x=~midweek_date, y=~percent_cases_through_app, 
-            text=~`Week starting (Wythnos yn dechrau)`,
+            text=~week_label,
             line=list(width=4), color=I("#2ca02c"),
             hovertemplate = paste(
               '%{y:.2s}% of all positive tests<br>',
               'in England and Wales<br>',
               'were reported through the app<br>',
-              'in the week beginning %{text|%d %B}<extra></extra>')) %>%
+              'in the week %{text}<extra></extra>')) %>%
   layout(
     xaxis=list(tickfont=f1,
                title="",

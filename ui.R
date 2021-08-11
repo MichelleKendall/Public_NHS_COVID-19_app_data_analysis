@@ -38,9 +38,14 @@ ui <- fluidPage(
           
           HTML("<h4>
               This site is created and maintained by <a href=\"https://michellekendall.github.io/\" target=\"_blank\">Michelle Kendall</a>. 
-               
+              Please visit our <a href=\"https://github.com/MichelleKendall/Public_NHS_COVID-19_app_data_analysis\" target=\"_blank\">GitHub page</a> 
+              to explore the open source code.
                </h4>"),
           
+          h4("Download the data:"),
+          
+          downloadButton("downloadData", "Download csv"),
+            
           hr(),
           
           width=3
