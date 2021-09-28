@@ -1,6 +1,5 @@
 library(shiny)
 library(shinyWidgets)
-#library(RColorBrewer)
 library(glue)
 library(shinythemes) # for "yeti" theme
 library(shinycssloaders) # for "calculating" spinners
@@ -8,16 +7,6 @@ library(Cairo) # for better graphics resolution
 options(shiny.usecairo=T)
 library(tidyverse)
 library(plotly)
-#library(data.table) # for cases by age
-#library(stringr) # for cases by age
-#library(stringi) # for cases by age
-#library(viridis)
-#library(leaflet) # for maps
-#library(sf) # for maps
-#library(adegenet) # for colouring maps
-# library(httr) # for accessing latest data; needed this when updates were done within the app but don't need it whilst running "prepping_the_data.R" manually
-# options(shiny.trace = TRUE)
-# options(shiny.trace = FALSE)
 
 # load data
 public.app.data.totals <- read_csv("data/public_app_data_summary.csv")
