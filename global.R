@@ -211,7 +211,70 @@ percent_app_plot <- plot_ly(public.app.data.totals) %>%
     yaxis=list(
       tickfont=f1,
       titlefont=f1,
-      title="Percentage of all national cases from\ngovernment dashbaord reported through the app",
+      title="Percentage of all national cases from\ngovernment dashboard reported through the app",
+      range=c(0,100)
+    ),
+    legend=list(
+      font=f1
+    )
+  )
+
+# percent of positive cases from dashboard reported through app 
+percent_over_16_app_plot <- plot_ly(public.app.data.totals) %>%
+  add_lines(x=as.Date("2021-07-19"), y=c(0,100), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-07-19"), y=100, text="Step 4",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-05-17"), y=c(0,100), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-05-17"), y=80, text="Step 3",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-04-12"), y=c(0,100), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-04-12"), y=100, text="Step 2",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-03-29"), y=c(0,100), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-03-29"), y=80, text="Step 1b",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-03-08"), y=c(0,100), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-03-08"), y=100, text="Step 1a",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=~midweek_date, y=~percent_cases_over_16_through_app, 
+            text=~week_label,
+            line=list(width=4), color=I("#2ca02c"),
+            hovertemplate = paste(
+              '%{y:.2s}% of all positive tests<br>',
+              'amongst 16+ year-olds<br>',
+              'in England and Wales<br>',
+              'were reported through the app<br>',
+              'in the week %{text}<extra></extra>')) %>%
+  layout(
+    xaxis=list(tickfont=f1,
+               title="",
+               tickvals=tickvals.for.plotting,
+               ticktext=format(tickvals.for.plotting, "%b %d")
+    ),
+    yaxis=list(
+      tickfont=f1,
+      titlefont=f1,
+      title="Percentage of all national 16+ cases\nreported through the app",
       range=c(0,100)
     ),
     legend=list(

@@ -13,6 +13,10 @@ server <- function(input, output, session) {
     percent_app_plot
   })
   
+  output$percent_over_16_app_plot <- renderPlotly({
+    percent_over_16_app_plot
+  })
+  
   output$updatedInfo <- renderUI({
     HTML(glue("<h4>This site was last updated on {format(last.datestamp, \"%d %B\")} using the available data up to {format(last.date.of.data, \"%d %B\")}.</h4>"))
   })

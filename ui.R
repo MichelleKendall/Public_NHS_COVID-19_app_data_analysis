@@ -65,9 +65,15 @@ ui <- fluidPage(
           
           br(),
           
-          h2("Weekly measure of the percentage of all national cases from the government dashboard which are reported through the app"),
+          h2("Weekly measure of the percentage of all cases in England and Wales from the government dashboard which are reported through the app"),
           
           withSpinner(plotlyOutput("percent_app_plot", height="80vh"), type=7),
+          
+          br(),
+          
+          h2("Weekly measure of the percentage of all cases amongst individuals aged 16 and over (eligible to use the app) in England and Wales which are reported through the app"),
+          
+          withSpinner(plotlyOutput("percent_over_16_app_plot", height="80vh"), type=7),
           
           hr()
         )
