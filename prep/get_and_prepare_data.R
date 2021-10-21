@@ -61,6 +61,10 @@ cases_over_16 <- bind_rows(cases_16_to_19, cases_over_19) %>%
   summarise(cases_over_16 = sum(cases)) %>%
   mutate("weekly_sum_eng_wales_cases_by_specimen_date_over_16" = frollsum(cases_over_16, n=7, fill=NA, align="center"))
 
+# plot for sanity check:
+# plot_ly(cases_over_16) %>%
+#   add_lines(x=~date, y=~cases_over_16) %>%
+#   add_lines(x=~date, y=~weekly_sum_eng_wales_cases_by_specimen_date_over_16)
 
 # combine
 public.app.data.totals <- left_join(public.app.data.totals, engwales.case.data)
