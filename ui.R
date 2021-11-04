@@ -27,7 +27,7 @@ ui <- fluidPage(
           
           HTML("<h4>Plotted here are some key statistics about app usage and performance using data from
           <a href=\"https://stats.app.covid19.nhs.uk/\" target=\"_blank\">NHS COVID-19 app support</a>
-          and <a href=\"https://coronavirus.data.gov.uk/about-data\" target=\"_blank\">Public Health England</a>.
+          and <a href=\"https://coronavirus.data.gov.uk/about-data\" target=\"_blank\">UKHSA</a>.
               <br>
               <br>
               
