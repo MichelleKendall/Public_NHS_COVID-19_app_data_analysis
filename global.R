@@ -28,6 +28,13 @@ f2 <- list(
 # plots
 # Notifications and positive tests on a log scale
 N_P_log_plot <- plot_ly(public.app.data.totals) %>%
+  add_lines(x=as.Date("2021-11-27"), y=c(0,900000), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-11-27"), y=4, text="First\nmeasures\nagainst\nOmicron",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2021-07-19"), y=c(0,900000), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-07-19"), y=6, text="Step 4",
@@ -97,6 +104,13 @@ N_P_log_plot <- plot_ly(public.app.data.totals) %>%
 
 # ENPIC = Exposure notifications per index case
 ENPIC_plot <- plot_ly(public.app.data.totals) %>%
+  add_lines(x=as.Date("2021-11-27"), y=c(0,8), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-11-27"), y=6, text="First\nmeasures\nagainst\nOmicron",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2021-07-19"), y=c(0,8), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-07-19"), y=7, text="Step 4",
@@ -159,6 +173,13 @@ ENPIC_plot <- plot_ly(public.app.data.totals) %>%
 
 # percent of positive cases from dashboard reported through app 
 percent_app_plot <- plot_ly(public.app.data.totals) %>%
+  add_lines(x=as.Date("2021-11-27"), y=c(0,100), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-11-27"), y=80, text="First\nmeasures\nagainst\nOmicron",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2021-07-19"), y=c(0,100), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-07-19"), y=100, text="Step 4",
@@ -221,6 +242,13 @@ percent_app_plot <- plot_ly(public.app.data.totals) %>%
 
 # percent of positive cases from dashboard reported through app 
 percent_over_16_app_plot <- plot_ly(public.app.data.totals) %>%
+  add_lines(x=as.Date("2021-11-27"), y=c(0,100), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-11-27"), y=80, text="First\nmeasures\nagainst\nOmicron",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2021-07-19"), y=c(0,100), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-07-19"), y=100, text="Step 4",
