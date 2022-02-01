@@ -32,6 +32,8 @@ public.app.data.totals <- public.app.data %>%
   mutate("week_label" = glue("{format(date - 3, \"%d %B\")} to {format(date + 3, \"%d %B\")}")) %>%
   ungroup(`Week starting (Wythnos yn dechrau)`,`Week ending (Wythnos yn gorffen)`)
 
+CBA_data_Wales$cases[which(is.na(CBA_data_Wales$cases))] <- 0 # workaround to cover missing data for Wales
+
 engwales.case.data <- bind_rows(english.case.data, welsh.case.data) %>%
   filter(date >= as.Date("2020-12-01")) %>%
   group_by(date) %>%
