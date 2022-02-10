@@ -14,13 +14,13 @@ load("data/dates.RData")
 
 # aesthetics
 f1 <- list(
-  family = "Helvetica",
+  family = "Arial, sans-serif",
   size = 28,
   color = "black"
 )
 
 f2 <- list(
-  family = "Helvetica",
+  family = "Arial, sans-serif",
   size = 22,
   color = "black"
 )
@@ -28,13 +28,13 @@ f2 <- list(
 # plots
 # Notifications and positive tests on a log scale
 N_P_log_plot <- plot_ly(public.app.data.totals) %>%
-  # add_lines(x=as.Date("2022-01-27"), y=c(0,900000), color=I("darkgrey"),
-  #           line=list(width=3), showlegend=FALSE) %>%
-  # add_annotations(x=as.Date("2022-01-27"), y=6, text="End of\nPlan B",
-  #                 font=f2,
-  #                 xref="x",
-  #                 yref="y",
-  #                 showarrow=FALSE) %>%
+  add_lines(x=as.Date("2022-01-27"), y=c(0,900000), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-01-27"), y=6, text="End of\nPlan B",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2021-11-27"), y=c(0,900000), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-11-27"), y=4, text="First\nmeasures\nagainst\nOmicron",
@@ -111,13 +111,13 @@ N_P_log_plot <- plot_ly(public.app.data.totals) %>%
 
 # ENPIC = Exposure notifications per index case
 ENPIC_plot <- plot_ly(public.app.data.totals) %>%
-  # add_lines(x=as.Date("2022-01-27"), y=c(0,8), color=I("darkgrey"),
-  #           line=list(width=3), showlegend=FALSE) %>%
-  # add_annotations(x=as.Date("2022-01-27"), y=7, text="End of\nPlan B",
-  #                 font=f2,
-  #                 xref="x",
-  #                 yref="y",
-  #                 showarrow=FALSE) %>%
+  add_lines(x=as.Date("2022-01-27"), y=c(0,8), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-01-27"), y=7, text="End of\nPlan B",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2021-11-27"), y=c(0,8), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-11-27"), y=6, text="First\nmeasures\nagainst\nOmicron",
@@ -187,13 +187,13 @@ ENPIC_plot <- plot_ly(public.app.data.totals) %>%
 
 # percent of positive cases from dashboard reported through app 
 percent_app_plot <- plot_ly(public.app.data.totals) %>%
-  # add_lines(x=as.Date("2022-01-27"), y=c(0,100), color=I("darkgrey"),
-  #           line=list(width=3), showlegend=FALSE) %>%
-  # add_annotations(x=as.Date("2022-01-27"), y=100, text="End of\nPlan B",
-  #                 font=f2,
-  #                 xref="x",
-  #                 yref="y",
-  #                 showarrow=FALSE) %>%
+  add_lines(x=as.Date("2022-01-27"), y=c(0,100), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-01-27"), y=100, text="End of\nPlan B",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2021-11-27"), y=c(0,100), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-11-27"), y=80, text="First\nmeasures\nagainst\nOmicron",
@@ -263,13 +263,13 @@ percent_app_plot <- plot_ly(public.app.data.totals) %>%
 
 # percent of positive cases from dashboard reported through app 
 percent_over_16_app_plot <- plot_ly(public.app.data.totals) %>%
-  # add_lines(x=as.Date("2022-01-27"), y=c(0,100), color=I("darkgrey"),
-  #           line=list(width=3), showlegend=FALSE) %>%
-  # add_annotations(x=as.Date("2022-01-27"), y=100, text="End of\nPlan B",
-  #                 font=f2,
-  #                 xref="x",
-  #                 yref="y",
-  #                 showarrow=FALSE) %>%
+  add_lines(x=as.Date("2022-01-27"), y=c(0,100), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-01-27"), y=100, text="End of\nPlan B",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2021-11-27"), y=c(0,100), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-11-27"), y=80, text="First\nmeasures\nagainst\nOmicron",
