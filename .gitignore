@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
-rsconnect/shinyapps.io/bdi-pathogens/854ngd99imfds7gs.dcf
-rsconnect/shinyapps.io/bdi-pathogens/NHS-COVID-19-app-statistics.dcf
+rsconnect*
 .DS_Store
 redirect.R
+data/manual_tracing.csv
