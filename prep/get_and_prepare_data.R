@@ -420,11 +420,11 @@ percent_over_16_app_plot <- plot_ly(public.app.data.totals) %>%
     )
   )
 
-# save plots using orca
-orca(N_P_log_plot, file="plots/N_P_log_plot.png", width=1600, height=800)
-orca(ENPIC_plot, file="plots/ENPIC_plot.png", width=1200, height=800)
-orca(percent_app_plot, file="plots/percent_app_plot.png", width=1200, height=800)
-orca(percent_over_16_app_plot, file="plots/percent_over_16_app_plot.png", width=1200, height=800)
+# save plots as png
+save_image(N_P_log_plot, file="plots/N_P_log_plot.png", width=1600, height=800)
+save_image(ENPIC_plot, file="plots/ENPIC_plot.png", width=1200, height=800)
+save_image(percent_app_plot, file="plots/percent_app_plot.png", width=1200, height=800)
+save_image(percent_over_16_app_plot, file="plots/percent_over_16_app_plot.png", width=1200, height=800)
 
 # save data
 write_csv(public.app.data.totals, file="data/public_app_data_summary.csv")
