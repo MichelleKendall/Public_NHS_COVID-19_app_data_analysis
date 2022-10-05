@@ -110,7 +110,7 @@ N_P_log_plot <- plot_ly(public.app.data.totals) %>%
     xaxis=list(tickfont=f1,
                title="",
                tickvals=tickvals.for.plotting,
-               ticktext=format(tickvals.for.plotting, "%b %d")
+               ticktext=format(tickvals.for.plotting, "%b %y")
     ),
     yaxis=list(
       tickfont=f1,
@@ -201,7 +201,7 @@ ENPIC_plot <- plot_ly(public.app.data.totals) %>%
     xaxis=list(tickfont=f1,
                title="",
                tickvals=tickvals.for.plotting,
-               ticktext=format(tickvals.for.plotting, "%b %d")
+               ticktext=format(tickvals.for.plotting, "%b %y")
     ),
     yaxis=list(
       tickfont=f1,
@@ -290,7 +290,7 @@ percent_app_plot <- plot_ly(public.app.data.totals) %>%
     xaxis=list(tickfont=f1,
                title="",
                tickvals=tickvals.for.plotting,
-               ticktext=format(tickvals.for.plotting, "%b %d")
+               ticktext=format(tickvals.for.plotting, "%b %y")
     ),
     yaxis=list(
       tickfont=f1,
@@ -381,7 +381,7 @@ percent_over_16_app_plot <- plot_ly(public.app.data.totals) %>%
     xaxis=list(tickfont=f1,
                title="",
                tickvals=tickvals.for.plotting,
-               ticktext=format(tickvals.for.plotting, "%b %d")
+               ticktext=format(tickvals.for.plotting, "%b %y")
     ),
     yaxis=list(
       tickfont=f1,

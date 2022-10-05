@@ -109,7 +109,8 @@ f2 <- list(
 
 first.date <- min(public.app.data.totals$midweek_date)
 last.date <- max(public.app.data.totals$midweek_date)
-tickvals.for.plotting <- seq(first.date, last.date, by=14)
+tickvals.for.plotting <- seq.Date(as.Date("2020-12-01"), as.Date("2022-09-01"), by="month")
+
 
 # Notifications and positive tests on a log scale
 N_P_log_plot <- plot_ly(public.app.data.totals) %>%
@@ -184,7 +185,7 @@ N_P_log_plot <- plot_ly(public.app.data.totals) %>%
     xaxis=list(tickfont=f1,
                title="",
                tickvals=tickvals.for.plotting,
-               ticktext=format(tickvals.for.plotting, "%b %d")
+               ticktext=format(tickvals.for.plotting, "%b %y")
     ),
     yaxis=list(
       tickfont=f1,
@@ -268,7 +269,7 @@ ENPIC_plot <- plot_ly(public.app.data.totals) %>%
     xaxis=list(tickfont=f1,
                title="",
                tickvals=tickvals.for.plotting,
-               ticktext=format(tickvals.for.plotting, "%b %d")
+               ticktext=format(tickvals.for.plotting, "%b %y")
     ),
     yaxis=list(
       tickfont=f1,
@@ -351,7 +352,7 @@ percent_app_plot <- plot_ly(public.app.data.totals) %>%
     xaxis=list(tickfont=f1,
                title="",
                tickvals=tickvals.for.plotting,
-               ticktext=format(tickvals.for.plotting, "%b %d")
+               ticktext=format(tickvals.for.plotting, "%b %y")
     ),
     yaxis=list(
       tickfont=f1,
@@ -435,7 +436,7 @@ percent_over_16_app_plot <- plot_ly(public.app.data.totals) %>%
     xaxis=list(tickfont=f1,
                title="",
                tickvals=tickvals.for.plotting,
-               ticktext=format(tickvals.for.plotting, "%b %d")
+               ticktext=format(tickvals.for.plotting, "%b %y")
     ),
     yaxis=list(
       tickfont=f1,
