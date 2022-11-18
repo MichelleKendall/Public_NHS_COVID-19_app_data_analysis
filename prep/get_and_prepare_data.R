@@ -11,7 +11,7 @@ reticulate::py_run_string("import sys") # to ensure we can use plotly::save_imag
 ############
 
 # get public app data from https://www.gov.uk/government/publications/nhs-covid-19-app-statistics
-public.app.data <- read_csv("https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1118462/covid19_app_country_specific_dataset.csv")
+public.app.data.national <- read_csv("https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1118462/covid19_app_country_specific_dataset.csv")
 
 # Get national case data
 english.case.data <- read_csv("https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&areaCode=E92000001&metric=newCasesBySpecimenDate&format=csv")
@@ -25,7 +25,7 @@ CBA_data_Wales <- read_csv("https://raw.githubusercontent.com/BDI-pathogens/Loca
 # DATA PROCESSING
 ##################
 
-public.app.data.totals <- public.app.data %>%
+public.app.data.national.totals <- public.app.data.national %>%
   filter(`Week starting (Wythnos yn dechrau)` >= as.Date("2020-12-17")) %>%
   group_by(`Week starting (Wythnos yn dechrau)`, `Week ending (Wythnos yn gorffen)`) %>%
   summarise("app_positives" = sum(`Positive test results linked to app (Canlyniadau prawf positif)`),
@@ -71,16 +71,16 @@ cases_over_16 <- bind_rows(cases_16_to_19, cases_over_19) %>%
 #   add_lines(x=~date, y=~weekly_sum_eng_wales_cases_by_specimen_date_over_16)
 
 # combine
-public.app.data.totals <- left_join(public.app.data.totals, engwales.case.data)
-public.app.data.totals <- left_join(public.app.data.totals, cases_over_16)
+public.app.data.national.totals <- left_join(public.app.data.national.totals, engwales.case.data)
+public.app.data.national.totals <- left_join(public.app.data.national.totals, cases_over_16)
 
-public.app.data.totals <- public.app.data.totals %>%
+public.app.data.national.totals <- public.app.data.national.totals %>%
   mutate("exposure_notifications_per_index_case" = app_notifications / app_positives) %>%
   mutate("percent_cases_through_app" = app_positives / weekly_sum_eng_wales_cases_by_specimen_date * 100) %>%
   mutate("percent_cases_over_16_through_app" = app_positives / weekly_sum_eng_wales_cases_by_specimen_date_over_16 * 100)
 
 # tidy
-public.app.data.totals <- public.app.data.totals %>%
+public.app.data.national.totals <- public.app.data.national.totals %>%
   select(`Week starting (Wythnos yn dechrau)`,
          `Week ending (Wythnos yn gorffen)`,
          "midweek_date" = date,
@@ -109,13 +109,13 @@ f2 <- list(
   color = "black"
 )
 
-first.date <- min(public.app.data.totals$midweek_date)
-last.date <- max(public.app.data.totals$midweek_date)
+first.date <- min(public.app.data.national.totals$midweek_date)
+last.date <- max(public.app.data.national.totals$midweek_date)
 tickvals.for.plotting <- seq.Date(as.Date("2020-12-01"), last.date, by="month")
 
 
 # Notifications and positive tests on a log scale
-N_P_log_plot <- plot_ly(public.app.data.totals) %>%
+N_P_log_plot <- plot_ly(public.app.data.national.totals) %>%
   add_lines(x=as.Date("2022-04-01"), y=c(0,900000), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=6, text="End of\nfree testing",
@@ -201,7 +201,7 @@ N_P_log_plot <- plot_ly(public.app.data.totals) %>%
   )
 
 # ENPIC = Exposure notifications per index case
-ENPIC_plot <- plot_ly(public.app.data.totals) %>%
+ENPIC_plot <- plot_ly(public.app.data.national.totals) %>%
   add_lines(x=as.Date("2022-04-01"), y=c(0,8), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=7, text="End of\nfree testing",
@@ -284,7 +284,7 @@ ENPIC_plot <- plot_ly(public.app.data.totals) %>%
   )
 
 # percent of positive cases from dashboard reported through app 
-percent_app_plot <- plot_ly(public.app.data.totals) %>%
+percent_app_plot <- plot_ly(public.app.data.national.totals) %>%
   add_lines(x=as.Date("2022-04-01"), y=c(0,100), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=100, text="End of\nfree testing",
@@ -369,7 +369,7 @@ percent_app_plot <- plot_ly(public.app.data.totals) %>%
 
 
 # percent of positive cases over 16 from dashboard reported through app 
-percent_over_16_app_plot <- plot_ly(public.app.data.totals) %>%
+percent_over_16_app_plot <- plot_ly(public.app.data.national.totals) %>%
   add_lines(x=as.Date("2022-04-01"), y=c(0,100), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=100, text="End of\nfree testing",
@@ -458,7 +458,7 @@ save_image(percent_app_plot, file="plots/percent_app_plot.png", width=1200, heig
 save_image(percent_over_16_app_plot, file="plots/percent_over_16_app_plot.png", width=1200, height=800)
 
 # save data
-write_csv(public.app.data.totals, file="data/public_app_data_summary.csv")
+write_csv(public.app.data.national.totals, file="data/public_app_data_national_summary.csv")
 
 last.datestamp <- Sys.Date()
 last.date.of.data <- last.date + 3
