@@ -25,13 +25,13 @@ ui <- fluidPage(
           id = "sidePanel.daily",
           style = "overflow-y: auto; max-height: 100vh", 
           
-          HTML("<h4>Plotted here are some key statistics about app usage and performance using data from
-          <a href=\"https://stats.app.covid19.nhs.uk/\" target=\"_blank\">NHS COVID-19 app support</a>
-          and <a href=\"https://coronavirus.data.gov.uk/about-data\" target=\"_blank\">UKHSA</a>.
+          HTML("<h4>Plotted here are some key statistics about app usage and performance using UKHSA data from
+          <a href=\"https://www.gov.uk/government/publications/nhs-covid-19-app-statistics\" target=\"_blank\"> NHS COVID-19 app statistics</a>
+          and the <a href=\"https://coronavirus.data.gov.uk\" target=\"_blank\"> UK government COVID-19 dashboard</a>.
               <br>
               <br>
               
-              The app statistics are updated weekly on a Thursday.</h4>"),
+              The app statistics are updated every 2 weeks on Thursdays, while the UK government dashboard is updated weekly.</h4>"),
           
           # "last updated" info
           uiOutput("updatedInfo"),

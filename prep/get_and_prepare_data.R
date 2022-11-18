@@ -4,12 +4,14 @@ library(data.table)
 library(glue)
 library(here)
 
+reticulate::py_run_string("import sys") # to ensure we can use plotly::save_image() later
+
 ############
 # LOAD DATA
 ############
 
-# get public app data from https://stats.app.covid19.nhs.uk/
-public.app.data <- read_csv("https://stats.app.covid19.nhs.uk/data/covid19_app_country_specific_dataset.csv?cacheBuster=1627575721036")
+# get public app data from https://www.gov.uk/government/publications/nhs-covid-19-app-statistics
+public.app.data <- read_csv("https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1118462/covid19_app_country_specific_dataset.csv")
 
 # Get national case data
 english.case.data <- read_csv("https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&areaCode=E92000001&metric=newCasesBySpecimenDate&format=csv")
@@ -109,7 +111,7 @@ f2 <- list(
 
 first.date <- min(public.app.data.totals$midweek_date)
 last.date <- max(public.app.data.totals$midweek_date)
-tickvals.for.plotting <- seq.Date(as.Date("2020-12-01"), as.Date("2022-09-01"), by="month")
+tickvals.for.plotting <- seq.Date(as.Date("2020-12-01"), last.date, by="month")
 
 
 # Notifications and positive tests on a log scale
