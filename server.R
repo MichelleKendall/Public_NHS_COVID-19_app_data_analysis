@@ -1,6 +1,10 @@
 # # Define server logic
 server <- function(input, output, session) {
   
+  output$uptake_plot <- renderPlotly({
+    uptake_plot
+  })
+  
   output$N_P_log_plot <- renderPlotly({
     N_P_log_plot
     })
@@ -18,7 +22,7 @@ server <- function(input, output, session) {
   })
   
   output$updatedInfo <- renderUI({
-    HTML(glue("<h4>This site was last updated on {format(last.datestamp, \"%d %B\")} using the available data up to {format(last.date.of.data, \"%d %B\")}.</h4>"))
+    HTML(glue("<h4>This site was last updated on {format(last.datestamp, \"%d %B\")} using the available app data up to {format(last.date.of.data, \"%d %B\")}.</h4>"))
   })
   
   output$downloadData <- downloadHandler(

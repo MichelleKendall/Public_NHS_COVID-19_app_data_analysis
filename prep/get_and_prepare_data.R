@@ -12,6 +12,7 @@ reticulate::py_run_string("import sys") # to ensure we can use plotly::save_imag
 
 # get public app data from https://www.gov.uk/government/publications/nhs-covid-19-app-statistics
 public.app.data.national <- read_csv("https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1118462/covid19_app_country_specific_dataset.csv")
+public.app.uptake.data.national.raw <- read_csv("https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1118464/covid19_app_data_on_number_of_app_users.csv")
 
 # Get national case data
 english.case.data <- read_csv("https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&areaCode=E92000001&metric=newCasesBySpecimenDate&format=csv")
@@ -70,6 +71,12 @@ cases_over_16 <- bind_rows(cases_16_to_19, cases_over_19) %>%
 #   add_lines(x=~date, y=~cases_over_16) %>%
 #   add_lines(x=~date, y=~weekly_sum_eng_wales_cases_by_specimen_date_over_16)
 
+public.app.uptake.data.national <- public.app.uptake.data.national.raw %>%
+  mutate("date" = as.Date(`Date (Dyddiad)`, format="%d-%m-%Y"),
+         "app_installed" = frollmean(`Users with app installed (Defnyddwyr gyda ap wedi'i osod)`, fill=NA, n=7, align="center"),
+         "contact_tracing_enabled" = frollmean(`Users with contact tracing enabled (Defnyddwyr ag olrhain cyswllt wedi'u galluogi)`, fill=NA, n=7, align="center")) %>%
+  ungroup()
+
 # combine
 public.app.data.national.totals <- left_join(public.app.data.national.totals, engwales.case.data)
 public.app.data.national.totals <- left_join(public.app.data.national.totals, cases_over_16)
@@ -105,14 +112,104 @@ f1 <- list(
 
 f2 <- list(
   family = "Arial, sans-serif",
-  size = 22,
-  color = "black"
+  size = 16,
+  color = "grey"
 )
 
 first.date <- min(public.app.data.national.totals$midweek_date)
 last.date <- max(public.app.data.national.totals$midweek_date)
-tickvals.for.plotting <- seq.Date(as.Date("2020-12-01"), last.date, by="month")
+tickvals.for.plotting <- seq.Date(as.Date("2020-10-01"), last.date, by="month")
 
+
+# Plot measures of app uptake: users with app installed and with contact tracing enabled
+line.height <- signif(max(public.app.uptake.data.national$app_installed*1.05, na.rm=TRUE),2)
+label.height.upper <- line.height*0.3
+label.height.lower <- line.height*0.1
+
+uptake_plot <- plot_ly(public.app.uptake.data.national) %>%
+  add_lines(x=as.Date("2022-04-01"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-04-01"), y=label.height.upper, text="End of\nfree testing",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2022-02-24"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-02-24"), y=label.height.lower, text="End of\nlegal\nrestrictions",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2022-01-27"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-01-27"), y=label.height.upper, text="End of\nPlan B",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-11-27"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-11-27"), y=label.height.lower, text="First\nmeasures\nagainst\nOmicron",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-07-19"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-07-19"), y=label.height.upper, text="Step 4",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-05-17"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-05-17"), y=label.height.lower, text="Step 3",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-04-12"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-04-12"), y=label.height.upper, text="Step 2",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-03-29"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-03-29"), y=label.height.lower, text="Step 1b",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-03-08"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-03-08"), y=label.height.upper, text="Step 1a",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=~date, y=~app_installed,
+            line=list(width=4), color=I("#9467bd"), name="App installed") %>%
+  add_lines(x=~date, y=~contact_tracing_enabled,
+            line=list(width=4), color=I("#e377c2"), name="Contact tracing\nenabled") %>%
+  layout(
+    xaxis=list(tickfont=f1,
+               title="",
+               tickvals=tickvals.for.plotting,
+               ticktext=format(tickvals.for.plotting, "%b %y")
+    ),
+    yaxis=list(
+      tickfont=f1,
+      titlefont=f1,
+      title="Measures of app uptake",
+      range=c(0,line.height)
+    ),
+    legend=list(
+      font=f1
+    )
+  )
 
 # Notifications and positive tests on a log scale
 N_P_log_plot <- plot_ly(public.app.data.national.totals) %>%
@@ -359,7 +456,7 @@ percent_app_plot <- plot_ly(public.app.data.national.totals) %>%
     yaxis=list(
       tickfont=f1,
       titlefont=f1,
-      title="Percentage of all national cases from\ngovernment dashbaord reported through the app",
+      title="Percentage of cases from government dashbaord\nreported through the app",
       range=c(0,100)
     ),
     legend=list(
@@ -443,7 +540,7 @@ percent_over_16_app_plot <- plot_ly(public.app.data.national.totals) %>%
     yaxis=list(
       tickfont=f1,
       titlefont=f1,
-      title="Percentage of all national cases aged 16+ from\ngovernment dashbaord reported through the app",
+      title="Percentage of cases aged 16+ from government dashbaord\nreported through the app",
       range=c(0,100)
     ),
     legend=list(
@@ -452,13 +549,15 @@ percent_over_16_app_plot <- plot_ly(public.app.data.national.totals) %>%
   )
 
 # save plots as png
-save_image(N_P_log_plot, file="plots/N_P_log_plot.png", width=1600, height=800)
-save_image(ENPIC_plot, file="plots/ENPIC_plot.png", width=1200, height=800)
-save_image(percent_app_plot, file="plots/percent_app_plot.png", width=1200, height=800)
-save_image(percent_over_16_app_plot, file="plots/percent_over_16_app_plot.png", width=1200, height=800)
+save_image(uptake_plot, file="plots/uptake_plot.png", width=2200, height=800)
+save_image(N_P_log_plot, file="plots/N_P_log_plot.png", width=1800, height=800)
+save_image(ENPIC_plot, file="plots/ENPIC_plot.png", width=1800, height=800)
+save_image(percent_app_plot, file="plots/percent_app_plot.png", width=1800, height=800)
+save_image(percent_over_16_app_plot, file="plots/percent_over_16_app_plot.png", width=1800, height=800)
 
 # save data
 write_csv(public.app.data.national.totals, file="data/public_app_data_national_summary.csv")
+write_csv(public.app.uptake.data.national, file="data/public_app_uptake_data_national.csv")
 
 last.datestamp <- Sys.Date()
 last.date.of.data <- last.date + 3

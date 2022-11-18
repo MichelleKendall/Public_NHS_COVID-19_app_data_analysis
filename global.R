@@ -1,3 +1,7 @@
+# Correct x ranges
+# Add uptake plot
+
+
 library(shiny)
 library(shinyWidgets)
 library(glue)
@@ -9,7 +13,8 @@ library(tidyverse)
 library(plotly)
 
 # load data
-public.app.data.totals <- read_csv("data/public_app_data_summary.csv")
+public.app.data.national.totals <- read_csv("data/public_app_data_national_summary.csv")
+public.app.uptake.data.national <- read_csv("data/public_app_uptake_data_national.csv")
 load("data/dates.RData")
 
 # aesthetics
@@ -21,13 +26,104 @@ f1 <- list(
 
 f2 <- list(
   family = "Arial, sans-serif",
-  size = 22,
-  color = "black"
+  size = 14,
+  color = "grey"
 )
 
 # plots
+
+# Plot measures of app uptake: users with app installed and with contact tracing enabled
+line.height <- signif(max(public.app.uptake.data.national$app_installed*1.05, na.rm=TRUE),2)
+label.height.upper <- line.height*0.3
+label.height.lower <- line.height*0.1
+
+uptake_plot <- plot_ly(public.app.uptake.data.national) %>%
+  add_lines(x=as.Date("2022-04-01"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-04-01"), y=label.height.upper, text="End of\nfree testing",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2022-02-24"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-02-24"), y=label.height.lower, text="End of\nlegal\nrestrictions",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2022-01-27"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-01-27"), y=label.height.upper, text="End of\nPlan B",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-11-27"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-11-27"), y=label.height.lower, text="First\nmeasures\nagainst\nOmicron",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-07-19"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-07-19"), y=label.height.upper, text="Step 4",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-05-17"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-05-17"), y=label.height.lower, text="Step 3",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-04-12"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-04-12"), y=label.height.upper, text="Step 2",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-03-29"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-03-29"), y=label.height.lower, text="Step 1b",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2021-03-08"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2021-03-08"), y=label.height.upper, text="Step 1a",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=~date, y=~app_installed,
+            line=list(width=4), color=I("#9467bd"), name="App installed") %>%
+  add_lines(x=~date, y=~contact_tracing_enabled,
+            line=list(width=4), color=I("#e377c2"), name="Contact tracing\nenabled") %>%
+  layout(
+    xaxis=list(tickfont=f1,
+               title="",
+               tickvals=tickvals.for.plotting,
+               ticktext=format(tickvals.for.plotting, "%b %y")
+    ),
+    yaxis=list(
+      tickfont=f1,
+      titlefont=f1,
+      title="Measures of app uptake",
+      range=c(0,line.height)
+    ),
+    legend=list(
+      font=f1
+    )
+  )
+
 # Notifications and positive tests on a log scale
-N_P_log_plot <- plot_ly(public.app.data.totals) %>%
+N_P_log_plot <- plot_ly(public.app.data.national.totals) %>%
   add_lines(x=as.Date("2022-04-01"), y=c(0,900000), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=6, text="End of\nfree testing",
@@ -124,7 +220,7 @@ N_P_log_plot <- plot_ly(public.app.data.totals) %>%
   )
 
 # ENPIC = Exposure notifications per index case
-ENPIC_plot <- plot_ly(public.app.data.totals) %>%
+ENPIC_plot <- plot_ly(public.app.data.national.totals) %>%
   add_lines(x=as.Date("2022-04-01"), y=c(0,8), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=7, text="End of\nfree testing",
@@ -214,7 +310,7 @@ ENPIC_plot <- plot_ly(public.app.data.totals) %>%
   )
 
 # percent of positive cases from dashboard reported through app 
-percent_app_plot <- plot_ly(public.app.data.totals) %>%
+percent_app_plot <- plot_ly(public.app.data.national.totals) %>%
   add_lines(x=as.Date("2022-04-01"), y=c(0,100), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=100, text="End of\nfree testing",
@@ -295,7 +391,7 @@ percent_app_plot <- plot_ly(public.app.data.totals) %>%
     yaxis=list(
       tickfont=f1,
       titlefont=f1,
-      title="Percentage of all national cases from\ngovernment dashboard reported through the app",
+      title="Percentage of cases\nreported through the app",
       range=c(0,100)
     ),
     legend=list(
@@ -304,7 +400,7 @@ percent_app_plot <- plot_ly(public.app.data.totals) %>%
   )
 
 # percent of positive cases from dashboard reported through app 
-percent_over_16_app_plot <- plot_ly(public.app.data.totals) %>%
+percent_over_16_app_plot <- plot_ly(public.app.data.national.totals) %>%
   add_lines(x=as.Date("2022-04-01"), y=c(0,100), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=100, text="End of\nfree testing",
@@ -386,7 +482,7 @@ percent_over_16_app_plot <- plot_ly(public.app.data.totals) %>%
     yaxis=list(
       tickfont=f1,
       titlefont=f1,
-      title="Percentage of all national 16+ cases\nreported through the app",
+      title="Percentage of 16+ cases\nreported through the app",
       range=c(0,100)
     ),
     legend=list(
