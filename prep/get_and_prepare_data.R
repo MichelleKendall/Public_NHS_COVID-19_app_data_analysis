@@ -75,6 +75,7 @@ public.app.uptake.data.national <- public.app.uptake.data.national.raw %>%
   mutate("date" = as.Date(`Date (Dyddiad)`, format="%d-%m-%Y"),
          "app_installed" = frollmean(`Users with app installed (Defnyddwyr gyda ap wedi'i osod)`, fill=NA, n=7, align="center"),
          "contact_tracing_enabled" = frollmean(`Users with contact tracing enabled (Defnyddwyr ag olrhain cyswllt wedi'u galluogi)`, fill=NA, n=7, align="center")) %>%
+  select(date, app_installed, contact_tracing_enabled) %>%
   ungroup()
 
 # combine
@@ -567,3 +568,14 @@ save(first.date, last.date, tickvals.for.plotting,
           last.datestamp, last.date.of.data, 
      file="data/dates.RData")
   
+
+test <- public.app.uptake.data.national.raw %>%
+  mutate("date" = as.Date(`Date (Dyddiad)`, format="%d-%m-%Y")) %>%
+  filter(date <= as.Date("2021-09-24")) %>%
+  select(date, `Users with app installed (Defnyddwyr gyda ap wedi'i osod)`, `Users with contact tracing enabled (Defnyddwyr ag olrhain cyswllt wedi'u galluogi)`) %>%
+  ungroup()
+
+write_csv(test, file="../app_national_uptake_data.csv")
+
+
+
