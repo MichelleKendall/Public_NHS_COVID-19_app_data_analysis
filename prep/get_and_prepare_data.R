@@ -78,6 +78,11 @@ public.app.uptake.data.national <- public.app.uptake.data.national.raw %>%
   select(date, app_installed, contact_tracing_enabled) %>%
   ungroup()
 
+# keep note first and last dates of app data
+# note that gov dashboard data can be a week "ahead" of app data, so we need to right-censor to the last date of app data
+first.date <- min(public.app.data.national.totals$date)
+last.date <- max(public.app.data.national.totals$date)
+
 # combine
 public.app.data.national.totals <- left_join(public.app.data.national.totals, engwales.case.data)
 public.app.data.national.totals <- left_join(public.app.data.national.totals, cases_over_16)
@@ -117,10 +122,7 @@ f2 <- list(
   color = "grey"
 )
 
-first.date <- min(public.app.data.national.totals$midweek_date)
-last.date <- max(public.app.data.national.totals$midweek_date)
-tickvals.for.plotting <- seq.Date(as.Date("2020-10-01"), last.date, by="month")
-
+tickvals.for.plotting <- seq.Date(as.Date("2020-10-01"), last.date, by="month") # note that gov dashboard data can be a week "ahead" of app data, so we're right-censoring to the last date of app data here
 
 # Plot measures of app uptake: users with app installed and with contact tracing enabled
 line.height <- signif(max(public.app.uptake.data.national$app_installed*1.05, na.rm=TRUE),2)
