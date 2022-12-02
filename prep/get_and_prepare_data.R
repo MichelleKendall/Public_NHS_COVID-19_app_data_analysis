@@ -27,13 +27,14 @@ CBA_data_Wales <- read_csv("https://raw.githubusercontent.com/BDI-pathogens/Loca
 ##################
 
 public.app.data.national.totals <- public.app.data.national %>%
-  filter(`Week starting (Wythnos yn dechrau)` >= as.Date("2020-12-17")) %>%
-  group_by(`Week starting (Wythnos yn dechrau)`, `Week ending (Wythnos yn gorffen)`) %>%
+  mutate("week_starting" = as.Date(`Week starting (Wythnos yn dechrau)`, format="%d/%m/%Y")) %>% 
+  filter(week_starting >= as.Date("2020-12-17")) %>%
+  group_by(week_starting) %>%
   summarise("app_positives" = sum(`Positive test results linked to app (Canlyniadau prawf positif)`),
             "app_notifications" = sum(`Contact tracing alert (Hysbysiadau olrhain cyswllt)`)) %>%
-  mutate("date" = `Week starting (Wythnos yn dechrau)` + 3) %>%
+  mutate("date" = week_starting + 3) %>%
   mutate("week_label" = glue("{format(date - 3, \"%d %B\")} to {format(date + 3, \"%d %B\")}")) %>%
-  ungroup(`Week starting (Wythnos yn dechrau)`,`Week ending (Wythnos yn gorffen)`)
+  ungroup()
 
 CBA_data_Wales$cases[which(is.na(CBA_data_Wales$cases))] <- 0 # workaround to cover missing data for Wales
 
@@ -72,7 +73,7 @@ cases_over_16 <- bind_rows(cases_16_to_19, cases_over_19) %>%
 #   add_lines(x=~date, y=~weekly_sum_eng_wales_cases_by_specimen_date_over_16)
 
 public.app.uptake.data.national <- public.app.uptake.data.national.raw %>%
-  mutate("date" = as.Date(`Date (Dyddiad)`, format="%d-%m-%Y"),
+  mutate("date" = as.Date(`Date (Dyddiad)`, format="%d/%m/%Y"),
          "app_installed" = frollmean(`Users with app installed (Defnyddwyr gyda ap wedi'i osod)`, fill=NA, n=7, align="center"),
          "contact_tracing_enabled" = frollmean(`Users with contact tracing enabled (Defnyddwyr ag olrhain cyswllt wedi'u galluogi)`, fill=NA, n=7, align="center")) %>%
   select(date, app_installed, contact_tracing_enabled) %>%
@@ -94,8 +95,7 @@ public.app.data.national.totals <- public.app.data.national.totals %>%
 
 # tidy
 public.app.data.national.totals <- public.app.data.national.totals %>%
-  select(`Week starting (Wythnos yn dechrau)`,
-         `Week ending (Wythnos yn gorffen)`,
+  select(week_starting,
          "midweek_date" = date,
          week_label,
          app_positives,
@@ -569,15 +569,4 @@ last.date.of.data <- last.date + 3
 save(first.date, last.date, tickvals.for.plotting,
           last.datestamp, last.date.of.data, 
      file="data/dates.RData")
-  
-
-test <- public.app.uptake.data.national.raw %>%
-  mutate("date" = as.Date(`Date (Dyddiad)`, format="%d-%m-%Y")) %>%
-  filter(date <= as.Date("2021-09-24")) %>%
-  select(date, `Users with app installed (Defnyddwyr gyda ap wedi'i osod)`, `Users with contact tracing enabled (Defnyddwyr ag olrhain cyswllt wedi'u galluogi)`) %>%
-  ungroup()
-
-write_csv(test, file="../app_national_uptake_data.csv")
-
-
 
