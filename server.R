@@ -30,7 +30,10 @@ server <- function(input, output, session) {
       glue("nhs.covid-19.app.data.to.{last.date.of.data}.csv")
     },
     content = function(file) {
-      write.csv(public.app.data.totals, file)
+      write.csv(
+        left_join(public.app.data.national.totals, 
+                  public.app.uptake.data.national, by=c("midweek_date" = "date")),
+        file)
     }
   )
   
