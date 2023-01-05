@@ -124,6 +124,13 @@ uptake_plot <- plot_ly(public.app.uptake.data.national) %>%
 
 # Notifications and positive tests on a log scale
 N_P_log_plot <- plot_ly(public.app.data.national.totals) %>%
+  add_lines(x=as.Date("2022-12-06"), y=c(0,900000), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-12-06"), y=6, text="Self-declaration\nof positive tests",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2022-04-01"), y=c(0,900000), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=6, text="End of\nfree testing",
@@ -221,6 +228,13 @@ N_P_log_plot <- plot_ly(public.app.data.national.totals) %>%
 
 # ENPIC = Exposure notifications per index case
 ENPIC_plot <- plot_ly(public.app.data.national.totals) %>%
+  add_lines(x=as.Date("2022-12-06"), y=c(0,8), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2022-12-06"), y=7, text="Self-declaration\nof positive tests",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2022-04-01"), y=c(0,8), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=7, text="End of\nfree testing",
@@ -311,6 +325,7 @@ ENPIC_plot <- plot_ly(public.app.data.national.totals) %>%
 
 # percent of positive cases from dashboard reported through app 
 percent_app_plot <- plot_ly(public.app.data.national.totals) %>%
+  filter(midweek_date <= as.Date("2022-12-07")) %>% # the data is no longer comparable after the release of app version 5
   add_lines(x=as.Date("2022-04-01"), y=c(0,100), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=100, text="End of\nfree testing",
@@ -386,7 +401,8 @@ percent_app_plot <- plot_ly(public.app.data.national.totals) %>%
     xaxis=list(tickfont=f1,
                title="",
                tickvals=tickvals.for.plotting,
-               ticktext=format(tickvals.for.plotting, "%b %y")
+               ticktext=format(tickvals.for.plotting, "%b %y"),
+               range=c(as.Date("2020-12-17"), as.Date("2022-12-07"))
     ),
     yaxis=list(
       tickfont=f1,
@@ -401,6 +417,7 @@ percent_app_plot <- plot_ly(public.app.data.national.totals) %>%
 
 # percent of positive cases from dashboard reported through app 
 percent_over_16_app_plot <- plot_ly(public.app.data.national.totals) %>%
+  filter(midweek_date <= as.Date("2022-12-07")) %>% # the data is no longer comparable after the release of app version 5
   add_lines(x=as.Date("2022-04-01"), y=c(0,100), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=100, text="End of\nfree testing",
@@ -477,7 +494,8 @@ percent_over_16_app_plot <- plot_ly(public.app.data.national.totals) %>%
     xaxis=list(tickfont=f1,
                title="",
                tickvals=tickvals.for.plotting,
-               ticktext=format(tickvals.for.plotting, "%b %y")
+               ticktext=format(tickvals.for.plotting, "%b %y"),
+               range=c(as.Date("2020-12-17"), as.Date("2022-12-07"))
     ),
     yaxis=list(
       tickfont=f1,

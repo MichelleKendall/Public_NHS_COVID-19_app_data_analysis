@@ -61,6 +61,10 @@ ui <- fluidPage(
           
           br(),
           
+          HTML("<h3>Please note that <b>an increase is expected</b> in the total number of positive tests (and, correspondingly, the notifications they trigger) from early December 2022. 
+          This is because from app version 5.0, released 6 December 2022, the number of positive test results includes paid-for as well as NHS tests, and users no longer need a code to enter a result in the app.
+               </h3>"),
+          
           h2("Weekly totals of positive tests reported through the app and contact tracing alerts received"),
           
           withSpinner(plotlyOutput("N_P_log_plot", height="60vh"), type=7),
@@ -75,7 +79,8 @@ ui <- fluidPage(
           
           h2("Weekly measure of the percentage of all cases in England and Wales from the government dashboard which are reported through the app"),
           
-          h3("Please note that the government dashboard data and app data are not perfectly comparable, and that this measure may have become more unreliable since December 2021. Please see below for details."),
+          h3("Please note that the government dashboard data and app data are not perfectly comparable, and that this measure may be more unreliable after December 2021. 
+             We stop reporting this measure in December 2022 when the two data streams became incomparable. Please see below for details."),
           
           withSpinner(plotlyOutput("percent_app_plot", height="60vh"), type=7),
           
@@ -83,7 +88,8 @@ ui <- fluidPage(
           
           h2("Weekly measure of the percentage of all cases amongst individuals aged 16 and over (eligible to use the app) in England and Wales which are reported through the app"),
           
-          h3("Please note that the government dashboard data and app data are not perfectly comparable, and that this measure may have become more unreliable since December 2021. Please see below for details."),
+          h3("Please note that the government dashboard data and app data are not perfectly comparable, and that this measure may be more unreliable after December 2021. 
+             We stop reporting this measure in December 2022 when the two data streams became incomparable. Please see below for details."),
           
           withSpinner(plotlyOutput("percent_over_16_app_plot", height="60vh"), type=7),
           
@@ -122,6 +128,9 @@ ui <- fluidPage(
           h3("These factors may be distorting the metric, particularly since the introduction of policies on 22 December 2021 and 17 January 2022 allowing 'early' release from self-isolation with
              negative lateral flow results, which are likely to have increased the numbers of people taking lateral flow tests in the days following a positive LFD or PCR result."),
           
+          br(),
+          HTML("<h3>From <b>app version 5.0</b> (released 6 December 2022) the number of positive test results includes paid-for as well as NHS tests, and users no longer need a code to enter a result in the app.
+               It is therefore no longer meaningful to compare this total to the government dashboard (NHS tests only) data, so we pause that measure on the week ending 7 December 2022.</h3>"),
           
           br(),
           br(),
