@@ -569,13 +569,6 @@ percent_over_16_app_plot <- plot_ly(public.app.data.national.totals) %>%
     )
   )
 
-# save plots as png
-save_image(uptake_plot, file="plots/uptake_plot.png", width=2200, height=800)
-save_image(N_P_log_plot, file="plots/N_P_log_plot.png", width=1800, height=800)
-save_image(ENPIC_plot, file="plots/ENPIC_plot.png", width=1800, height=800)
-save_image(percent_app_plot, file="plots/percent_app_plot.png", width=1800, height=800)
-save_image(percent_over_16_app_plot, file="plots/percent_over_16_app_plot.png", width=1800, height=800)
-
 # save data
 write_csv(public.app.data.national.totals, file="data/public_app_data_national_summary.csv")
 write_csv(public.app.uptake.data.national, file="data/public_app_uptake_data_national.csv")
@@ -587,4 +580,11 @@ last.date.of.data <- last.date + 3
 save(first.date, last.date, tickvals.for.plotting,
           last.datestamp, last.date.of.data, 
      file="data/dates.RData")
+
+# save plots as png
+save_image(uptake_plot, file="plots/uptake_plot.png", width=2200, height=800)
+save_image(N_P_log_plot, file="plots/N_P_log_plot.png", width=1800, height=800)
+save_image(ENPIC_plot, file="plots/ENPIC_plot.png", width=1800, height=800)
+save_image(percent_app_plot, file="plots/percent_app_plot.png", width=1800, height=800)
+save_image(percent_over_16_app_plot, file="plots/percent_over_16_app_plot.png", width=1800, height=800)
 
