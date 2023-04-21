@@ -130,6 +130,13 @@ label.height.upper <- line.height*0.3
 label.height.lower <- line.height*0.1
 
 uptake_plot <- plot_ly(public.app.uptake.data.national) %>%
+  add_lines(x=as.Date("2023-03-28"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2023-03-28"), y=label.height.lower, text="Announcement that\napp will close down\non 27 April",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2022-04-01"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=label.height.upper, text="End of\nfree testing",
@@ -216,6 +223,13 @@ uptake_plot <- plot_ly(public.app.uptake.data.national) %>%
 
 # Notifications and positive tests on a log scale
 N_P_log_plot <- plot_ly(public.app.data.national.totals) %>%
+  add_lines(x=as.Date("2023-03-28"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2023-03-28"), y=6, text="Announcement that\napp will close down\non 27 April",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2022-12-06"), y=c(0,900000), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-12-06"), y=6, text="Self-declaration\nof positive tests",
@@ -309,6 +323,15 @@ N_P_log_plot <- plot_ly(public.app.data.national.totals) %>%
 
 # ENPIC = Exposure notifications per index case
 ENPIC_plot <- plot_ly(public.app.data.national.totals) %>%
+  add_lines(x=as.Date("2023-03-28"), y=c(0,8), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2023-03-28"), y=6, text="Announcement that\napp will close down\non 27 April",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
+  add_lines(x=as.Date("2022-12-06"), y=c(0,8), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
   add_lines(x=as.Date("2022-12-06"), y=c(0,8), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-12-06"), y=7, text="Self-declaration\nof positive tests",
