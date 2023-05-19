@@ -130,9 +130,16 @@ label.height.upper <- line.height*0.3
 label.height.lower <- line.height*0.1
 
 uptake_plot <- plot_ly(public.app.uptake.data.national) %>%
+  add_lines(x=as.Date("2023-04-27"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2023-04-27"), y=line.height*0.4, text="App\nclosure",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2023-03-28"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
-  add_annotations(x=as.Date("2023-03-28"), y=label.height.lower, text="Announcement that\napp will close down\non 27 April",
+  add_annotations(x=as.Date("2023-03-28"), y=line.height*0.6, text="Announcement that\napp will close down\non 27 April",
                   font=f2,
                   xref="x",
                   yref="y",
@@ -221,8 +228,16 @@ uptake_plot <- plot_ly(public.app.uptake.data.national) %>%
     )
   )
 
+line.height <- 900000
 # Notifications and positive tests on a log scale
 N_P_log_plot <- plot_ly(public.app.data.national.totals) %>%
+  add_lines(x=as.Date("2023-04-27"), y=c(0,line.height), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2023-04-27"), y=5, text="App\nclosure",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2023-03-28"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2023-03-28"), y=6, text="Announcement that\napp will close down\non 27 April",
@@ -230,70 +245,70 @@ N_P_log_plot <- plot_ly(public.app.data.national.totals) %>%
                   xref="x",
                   yref="y",
                   showarrow=FALSE) %>%
-  add_lines(x=as.Date("2022-12-06"), y=c(0,900000), color=I("darkgrey"),
+  add_lines(x=as.Date("2022-12-06"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-12-06"), y=6, text="Self-declaration\nof positive tests",
                   font=f2,
                   xref="x",
                   yref="y",
                   showarrow=FALSE) %>%
-  add_lines(x=as.Date("2022-04-01"), y=c(0,900000), color=I("darkgrey"),
+  add_lines(x=as.Date("2022-04-01"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-04-01"), y=6, text="End of\nfree testing",
                   font=f2,
                   xref="x",
                   yref="y",
                   showarrow=FALSE) %>%
-  add_lines(x=as.Date("2022-02-24"), y=c(0,900000), color=I("darkgrey"),
+  add_lines(x=as.Date("2022-02-24"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-02-24"), y=4, text="End of\nlegal\nrestrictions",
                   font=f2,
                   xref="x",
                   yref="y",
                   showarrow=FALSE) %>%
-  add_lines(x=as.Date("2022-01-27"), y=c(0,900000), color=I("darkgrey"),
+  add_lines(x=as.Date("2022-01-27"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-01-27"), y=6, text="End of\nPlan B",
                   font=f2,
                   xref="x",
                   yref="y",
                   showarrow=FALSE) %>%
-  add_lines(x=as.Date("2021-11-27"), y=c(0,900000), color=I("darkgrey"),
+  add_lines(x=as.Date("2021-11-27"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-11-27"), y=4, text="First\nmeasures\nagainst\nOmicron",
                   font=f2,
                   xref="x",
                   yref="y",
                   showarrow=FALSE) %>%
-  add_lines(x=as.Date("2021-07-19"), y=c(0,900000), color=I("darkgrey"),
+  add_lines(x=as.Date("2021-07-19"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-07-19"), y=6, text="Step 4",
                   font=f2,
                   xref="x",
                   yref="y",
                   showarrow=FALSE) %>%
-  add_lines(x=as.Date("2021-05-17"), y=c(0,900000), color=I("darkgrey"),
+  add_lines(x=as.Date("2021-05-17"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-05-17"), y=5.7, text="Step 3",
                   font=f2,
                   xref="x",
                   yref="y",
                   showarrow=FALSE) %>%
-  add_lines(x=as.Date("2021-04-12"), y=c(0,900000), color=I("darkgrey"),
+  add_lines(x=as.Date("2021-04-12"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-04-12"), y=6, text="Step 2",
                   font=f2,
                   xref="x",
                   yref="y",
                   showarrow=FALSE) %>%
-  add_lines(x=as.Date("2021-03-29"), y=c(0,900000), color=I("darkgrey"),
+  add_lines(x=as.Date("2021-03-29"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-03-29"), y=5.7, text="Step 1b",
                   font=f2,
                   xref="x",
                   yref="y",
                   showarrow=FALSE) %>%
-  add_lines(x=as.Date("2021-03-08"), y=c(0,900000), color=I("darkgrey"),
+  add_lines(x=as.Date("2021-03-08"), y=c(0,line.height), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2021-03-08"), y=6, text="Step 1a",
                   font=f2,
@@ -301,9 +316,20 @@ N_P_log_plot <- plot_ly(public.app.data.national.totals) %>%
                   yref="y",
                   showarrow=FALSE) %>%
   add_lines(x=~midweek_date, y=~app_notifications, name="App notifications",
-            line=list(width=4), color=I("#1f77b4")) %>%
+            text=~week_label,
+            line=list(width=4), color=I("#1f77b4"),
+            hovertemplate = paste(
+              '%{y} notifications in the<br>',
+              'week %{text}<extra></extra>')
+  ) %>%
   add_lines(x=~midweek_date, y=~app_positives, name="Positive tests\nentered into app",
-            line=list(width=4), color=I("#ff7f0e")) %>%
+            text=~week_label,
+            line=list(width=4), color=I("#ff7f0e"),
+            hovertemplate = paste(
+              '%{y} positive tests entered<br>',
+              'into the app in the<br>',
+              'week %{text}<extra></extra>')
+  ) %>%
   layout(
     xaxis=list(tickfont=f1,
                title="",
@@ -323,6 +349,13 @@ N_P_log_plot <- plot_ly(public.app.data.national.totals) %>%
 
 # ENPIC = Exposure notifications per index case
 ENPIC_plot <- plot_ly(public.app.data.national.totals) %>%
+  add_lines(x=as.Date("2023-04-27"), y=c(0,8), color=I("darkgrey"),
+            line=list(width=3), showlegend=FALSE) %>%
+  add_annotations(x=as.Date("2023-04-27"), y=7, text="App\nclosure",
+                  font=f2,
+                  xref="x",
+                  yref="y",
+                  showarrow=FALSE) %>%
   add_lines(x=as.Date("2023-03-28"), y=c(0,8), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2023-03-28"), y=6, text="Announcement that\napp will close down\non 27 April",
@@ -330,8 +363,6 @@ ENPIC_plot <- plot_ly(public.app.data.national.totals) %>%
                   xref="x",
                   yref="y",
                   showarrow=FALSE) %>%
-  add_lines(x=as.Date("2022-12-06"), y=c(0,8), color=I("darkgrey"),
-            line=list(width=3), showlegend=FALSE) %>%
   add_lines(x=as.Date("2022-12-06"), y=c(0,8), color=I("darkgrey"),
             line=list(width=3), showlegend=FALSE) %>%
   add_annotations(x=as.Date("2022-12-06"), y=7, text="Self-declaration\nof positive tests",
@@ -403,7 +434,14 @@ ENPIC_plot <- plot_ly(public.app.data.national.totals) %>%
                   yref="y",
                   showarrow=FALSE) %>%
   add_lines(x=~midweek_date, y=~exposure_notifications_per_index_case,
-            line=list(width=4), color=I('darkred')) %>%
+            text=~week_label,
+            line=list(width=4), color=I('darkred'),
+            hovertemplate = paste(
+              '%{y:.2s} notifications per person who<br>',
+              'input a positive test and<br>',
+              'agreed to contact tracing<br>',
+              'in the week %{text}<extra></extra>')
+  ) %>%
   layout(
     xaxis=list(tickfont=f1,
                title="",

@@ -25,19 +25,17 @@ ui <- fluidPage(
           id = "sidePanel.daily",
           style = "overflow-y: auto; max-height: 100vh", 
           
-          HTML("<h4>Plotted here are some key statistics about app usage and performance using UKHSA data from
+          HTML("<h4>Plotted here are some key statistics about NHS COVID-19 app usage and performance using UKHSA data from
           <a href=\"https://www.gov.uk/government/publications/nhs-covid-19-app-statistics\" target=\"_blank\"> NHS COVID-19 app statistics</a>
-          and the <a href=\"https://coronavirus.data.gov.uk\" target=\"_blank\"> UK government COVID-19 dashboard</a>.
-              <br>
-              <br>
-              
-              The app statistics are updated every 2 weeks while the UK government dashboard is updated weekly, both on Thursdays.</h4>"),
+          and the <a href=\"https://coronavirus.data.gov.uk\" target=\"_blank\"> UK government COVID-19 dashboard</a>.</h4>"),
           
           # "last updated" info
           uiOutput("updatedInfo"),
           
+          HTML("<h4>There will be no further updates because the app was closed down on 27 April 2023 and the final app statistics release was on 18 May 2023.</h4>"),
+          
           HTML("<h4>
-              This site is created and maintained by <a href=\"https://michellekendall.github.io/\" target=\"_blank\">Michelle Kendall</a>. 
+              This site was created and maintained by <a href=\"https://michellekendall.github.io/\" target=\"_blank\">Michelle Kendall</a>. 
               Please visit our <a href=\"https://github.com/MichelleKendall/Public_NHS_COVID-19_app_data_analysis\" target=\"_blank\">GitHub page</a> 
               to explore the open source code.
                </h4>"),
